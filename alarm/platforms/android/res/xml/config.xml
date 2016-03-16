@@ -9,6 +9,9 @@
         <param name="android-package" value="org.nypr.cordova.wakeupplugin.WakeupPlugin" />
         <param name="onload" value="true" />
     </feature>
+    <feature name="AlarmPlugin">
+        <param name="android-package" value="com.uniclau.alarmplugin.AlarmPlugin" />
+    </feature>
     <allow-intent href="market:*" />
     <name>AlarmClock</name>
     <description>

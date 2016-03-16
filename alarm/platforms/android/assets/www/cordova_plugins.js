@@ -11,13 +11,21 @@ module.exports = [
         "clobbers": [
             "wakeuptimer"
         ]
+    },
+    {
+        "file": "plugins/com.uniclau.alarmplugin/www/alarmplugin.js",
+        "id": "com.uniclau.alarmplugin.AlarmPlugin",
+        "clobbers": [
+            "navigator.plugins.alarm"
+        ]
     }
 ];
 module.exports.metadata = 
 // TOP OF METADATA
 {
     "cordova-plugin-whitelist": "1.2.1",
-    "org.nypr.cordova.wakeupplugin": "0.1.0"
+    "org.nypr.cordova.wakeupplugin": "0.1.0",
+    "com.uniclau.alarmplugin": "0.1.0"
 };
 // BOTTOM OF METADATA
 });

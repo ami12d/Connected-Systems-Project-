@@ -16,7 +16,11 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+document.getElementById("submit").addEventListener("click", getTime);
+var interval = setInterval(checkTrigerred, 1000);
 var exec = require("cordova/exec");
+var counter = 0;
+var alarmDate;
 
 /**
  * This is a global variable called wakeup exposed by cordova
@@ -65,26 +69,31 @@ var app = {
 };
 
 app.initialize();
-function erroAlarm(){
-  return;
-  }
-
-function ringAlarm(){
-  window.location="success.html";
-  }
 
 function getTime(){
     setTime=document.getElementById("clock").value;
     parsedTime=setTime.split(':');
+    alarmDate = new Date();
+    alarmDate.setHours(parsedTime[0]);
+    alarmDate.setMinutes(parsedTime[1]);
+    alarmDate.setSeconds(0);
+    alarmDate.setMilliseconds(0);
     alert("called");
-    document.getElementById("myForm").innerHTML=setTime;
-    Wakeup.prototype.wakeup(ringAlarm(),erroAlarm(),{ alarms : [{
-            type : 'onetime',
-            time : { hour : parsedTime[0], minute : parsedTime[1] },
-            extra : { message : 'json containing app-specific information to be posted when alarm triggers' }, 
-            message : 'Alarm has expired!'
-       }] });
-    
-}
+    navigator.plugins.alarm.set(alarmDate, 
+        function(){
+            //SUCCESS
+        }, 
+        function(){
+            //FAIL
+        });
+};
 
-document.getElementById('submit').addEventListener('submit', getTime);
+function checkTrigerred() {
+    difference = Math.abs(alarmDate - new Date());
+    if(difference < 2000)
+    {
+        var audio = new Audio('audio/alarm.mp3');
+        audio.loop = true;
+        audio.play();
+    }
+};

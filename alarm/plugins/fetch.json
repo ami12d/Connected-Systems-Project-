@@ -15,5 +15,14 @@
         },
         "is_top_level": true,
         "variables": {}
+    },
+    "com.uniclau.alarmplugin": {
+        "source": {
+            "type": "git",
+            "url": "https://github.com/uniclau/AlarmPlugin.git",
+            "subdir": "."
+        },
+        "is_top_level": true,
+        "variables": {}
     }
 }

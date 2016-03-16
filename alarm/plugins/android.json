@@ -12,6 +12,9 @@
         },
         "org.nypr.cordova.wakeupplugin": {
             "PACKAGE_NAME": "com.example.alarm"
+        },
+        "com.uniclau.alarmplugin": {
+            "PACKAGE_NAME": "com.example.alarm"
         }
     },
     "dependent_plugins": {}
