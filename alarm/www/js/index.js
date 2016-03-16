@@ -16,6 +16,22 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+var exec = require("cordova/exec");
+
+/**
+ * This is a global variable called wakeup exposed by cordova
+ */
+var Wakeup = function(){};
+
+Wakeup.prototype.wakeup = function(success, error, options) {
+    exec(success, error, "WakeupPlugin", "wakeup", [options]);
+};
+
+Wakeup.prototype.snooze = function(success, error, options) {
+    exec(success, error, "WakeupPlugin", "snooze", [options]);
+};
+
+module.exports = new Wakeup();
 var app = {
     // Application Constructor
     initialize: function() {
@@ -49,8 +65,26 @@ var app = {
 };
 
 app.initialize();
+function erroAlarm(){
+  return;
+  }
 
-function creatAlarm()
-{
-    window.location.replace("../success.html");
+function ringAlarm(){
+  window.location="success.html";
+  }
+
+function getTime(){
+    setTime=document.getElementById("clock").value;
+    parsedTime=setTime.split(':');
+    alert("called");
+    document.getElementById("myForm").innerHTML=setTime;
+    Wakeup.prototype.wakeup(ringAlarm(),erroAlarm(),{ alarms : [{
+            type : 'onetime',
+            time : { hour : parsedTime[0], minute : parsedTime[1] },
+            extra : { message : 'json containing app-specific information to be posted when alarm triggers' }, 
+            message : 'Alarm has expired!'
+       }] });
+    
 }
+
+document.getElementById('submit').addEventListener('submit', getTime);

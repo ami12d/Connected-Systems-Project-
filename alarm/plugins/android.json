@@ -9,6 +9,9 @@
     "installed_plugins": {
         "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "com.example.alarm"
+        },
+        "org.nypr.cordova.wakeupplugin": {
+            "PACKAGE_NAME": "com.example.alarm"
         }
     },
     "dependent_plugins": {}

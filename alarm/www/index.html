@@ -36,8 +36,10 @@
         <title>Hello World</title>
     </head>
     <body>
-        <div class="app">
-            <form>
+        <script type="text/javascript" src="js/index.js"></script>
+
+	<div class="app" id="myForm">
+            <form onsubmit="return getTime();">
                     <input id="clock" type="time" name="usr_time" value="07:00">
                     <br>
                     <div id="radio">
@@ -52,10 +54,11 @@
                         </div>
                     </div>
                     <br>
-                    <input type="submit" name="add" value="Set Alarm" action="createAlarm();">
+                    <input type="submit" id="submit" name="add" value="Set Alarm">
                 </form>
         </div>
+	
         <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
+        
     </body>
 </html>
