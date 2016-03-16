@@ -99,7 +99,7 @@ input[type='radio']
     transform: scale(1.5);
     vertical-align: middle;
 }
-input[type='submit']
+button
 {
     margin-top: 8%;
     background-color: #4997D0;
@@ -107,13 +107,9 @@ input[type='submit']
     border-radius: 5px;
     font-size: 20px;
     padding: 20px 30px;
-}
-input[type='reset']
-{
-    margin-top: 2%;
-    background-color: #4997D0;
     border: none;
-    border-radius: 5px;
-    font-size: 20px;
-    padding: 20px 30px;
+}
+#cancel
+{
+    display: none;
 }

@@ -17,10 +17,13 @@
  * under the License.
  */
 document.getElementById("submit").addEventListener("click", getTime);
-var interval = setInterval(checkTrigerred, 1000);
+document.getElementById("cancel").addEventListener("click", stopAlarm);
+var interval;
 var exec = require("cordova/exec");
 var counter = 0;
 var alarmDate;
+var alarmType;
+var audio;
 
 /**
  * This is a global variable called wakeup exposed by cordova
@@ -72,28 +75,49 @@ app.initialize();
 
 function getTime(){
     setTime=document.getElementById("clock").value;
+    if(document.getElementById("r1").checked)
+    {
+        alarmType = 0;
+    }
+    if(document.getElementById("r2").checked)
+    {
+        alarmType = 1;
+    }
+    if(document.getElementById("r3").checked)
+    {
+        alarmType = 2;
+    }
     parsedTime=setTime.split(':');
     alarmDate = new Date();
     alarmDate.setHours(parsedTime[0]);
     alarmDate.setMinutes(parsedTime[1]);
     alarmDate.setSeconds(0);
     alarmDate.setMilliseconds(0);
-    alert("called");
     navigator.plugins.alarm.set(alarmDate, 
         function(){
             //SUCCESS
+            interval = setInterval(checkTrigerred, 250);
+            alert("Alarm Set at: " + alarmDate);
         }, 
         function(){
             //FAIL
         });
 };
 
+function stopAlarm(){
+    window.location="index.html";
+};
+
 function checkTrigerred() {
     difference = Math.abs(alarmDate - new Date());
-    if(difference < 2000)
+    if(difference < 500)
     {
-        var audio = new Audio('audio/alarm.mp3');
+        audio = new Audio('audio/alarm.mp3');
         audio.loop = true;
         audio.play();
+        if(alarmType == 2)
+        {
+            document.getElementById("cancel").style.display = "inline";
+        }
     }
 };

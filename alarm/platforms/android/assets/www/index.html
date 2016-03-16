@@ -37,24 +37,26 @@
     </head>
     <body>
 
-	<div class="app" id="myForm">
+	   <div class="app" id="myForm">
             <form>
-                    <input id="clock" type="time" name="usr_time" value="07:00">
-                    <br>
-                    <div id="radio">
-                        <div class="item">
-                            <input class="alarmType" type="radio" name="AlarmType" checked> Bed Sensor
-                        </div>
-                        <div class="item">
-                            <input class="alarmType" type="radio" name="AlarmType"> Door Sensor
-                        </div>
-                        <div class="item">
-                            <input class="alarmType" type="radio" name="AlarmType"> Normal Alarm
-                        </div>
+                <input id="clock" type="time" name="usr_time" value="07:00">
+                <br>
+                <div id="radio">
+                    <div class="item">
+                        <input class="alarmType" id="r1" type="radio" name="AlarmType"> Bed Sensor
                     </div>
-                    <br>
-                </form>
-                <input type="submit" id="submit" name="add">
+                    <div class="item">
+                        <input class="alarmType" id="r2" type="radio" name="AlarmType"> Door Sensor
+                    </div>
+                    <div class="item">
+                        <input class="alarmType" id="r3" type="radio" name="AlarmType" checked> Normal Alarm
+                    </div>
+                </div>
+                <br>
+            </form>
+            <button id="submit" name="add">Add</button>
+            </br>
+            <button id="cancel">Turn off</button>
         </div>
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript" src="cordova.js"></script>
