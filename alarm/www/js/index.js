@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-document.getElementById("submit").addEventListener("click", getTime);
+document.getElementById("submit").addEventListener("click", setAlarm);
 document.getElementById("cancel").addEventListener("click", stopAlarm);
 var interval;
 var exec = require("cordova/exec");
@@ -24,6 +24,7 @@ var counter = 0;
 var alarmDate;
 var alarmType;
 var audio;
+var value;
 
 /**
  * This is a global variable called wakeup exposed by cordova
@@ -73,8 +74,9 @@ var app = {
 
 app.initialize();
 
-function getTime(){
+function setAlarm(){
     setTime=document.getElementById("clock").value;
+    parsedTime=setTime.split(':');
     if(document.getElementById("r1").checked)
     {
         alarmType = 0;
@@ -87,7 +89,6 @@ function getTime(){
     {
         alarmType = 2;
     }
-    parsedTime=setTime.split(':');
     alarmDate = new Date();
     alarmDate.setHours(parsedTime[0]);
     alarmDate.setMinutes(parsedTime[1]);
@@ -101,6 +102,7 @@ function getTime(){
         }, 
         function(){
             //FAIL
+            alert("Failed");
         });
 };
 
@@ -119,5 +121,29 @@ function checkTrigerred() {
         {
             document.getElementById("cancel").style.display = "inline";
         }
+        else
+        {
+            $.post('http://miniproject.eu-gb.mybluemix.net/alarmStatus', {"status":1});
+            window.clearInterval(interval);
+            getValue();
+        }
     }
+};
+function getValue()
+{
+    value = $.get('http://miniproject.eu-gb.mybluemix.net/test', callback);
+};
+function callback()
+{
+    if(value.responseText !== undefined)
+    {
+        flag = value.responseText;
+        alert(flag);
+        if(flag == 0)
+        {
+            window.clearInterval(interval);
+            window.location="index.html";
+        }
+    }
+    setTimeout(getValue, 250);
 };
