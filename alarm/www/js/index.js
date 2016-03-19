@@ -139,15 +139,10 @@ function callback()
 {
     if(value.responseText == "0")
     {
-        alert(flag);
-<<<<<<< Updated upstream
+        flag = value.responseText;
 	    $.post('http://miniproject.eu-gb.mybluemix.net/diffTime', {"time":difftime});
         window.clearInterval(interval);
         window.location="index.html";
-=======
-        window.clearInterval(interval);
-        window.location="index.html";
->>>>>>> Stashed changes
     }
     setTimeout(getValue, 250);
 };
