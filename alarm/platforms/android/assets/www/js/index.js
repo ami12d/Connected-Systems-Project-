@@ -135,11 +135,11 @@ function getValue()
 };
 function callback()
 {
-    if(value.responseText !== undefined)
+    if(value.responseText !== undefined && (value.responseText == "0" || value.responseText == "1"))
     {
         flag = value.responseText;
         alert(flag);
-        if(flag == 0)
+        if(flag == "0")
         {
             window.clearInterval(interval);
             window.location="index.html";
