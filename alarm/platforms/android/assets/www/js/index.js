@@ -25,6 +25,7 @@ var alarmDate;
 var alarmType;
 var audio;
 var value;
+var difftime;
 
 /**
  * This is a global variable called wakeup exposed by cordova
@@ -114,6 +115,7 @@ function checkTrigerred() {
     difference = Math.abs(alarmDate - new Date());
     if(difference < 500)
     {
+	difftime = new Date().toISOString().slice(0, 19).replace('T', ' ');
         audio = new Audio('audio/alarm.mp3');
         audio.loop = true;
         audio.play();
@@ -141,6 +143,7 @@ function callback()
         alert(flag);
         if(flag == "0")
         {
+	    $.post('http://miniproject.eu-gb.mybluemix.net/diffTime', {"time":difftime});
             window.clearInterval(interval);
             window.location="index.html";
         }
