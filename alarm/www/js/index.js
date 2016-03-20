@@ -115,13 +115,14 @@ function checkTrigerred() {
     difference = Math.abs(alarmDate - new Date());
     if(difference < 500)
     {
-	difftime = new Date().toISOString().slice(0, 19).replace('T', ' ');
+	   //difftime = new Date();//.toISOString().slice(0, 19).replace('T', ' ');
         audio = new Audio('audio/alarm.mp3');
         audio.loop = true;
         audio.play();
         if(alarmType == 2)
         {
             document.getElementById("cancel").style.display = "inline";
+            document.getElementById("timeInfo").style.display = "none";
         }
         else
         {
@@ -137,11 +138,20 @@ function getValue()
 };
 function callback()
 {
-    if(value.responseText == "0")
+    //alert("in callback");
+    if("0".localeCompare(value.responseText) == 0 && value.responseText !== undefined)
     {
-        flag = value.responseText;
-	    $.post('http://miniproject.eu-gb.mybluemix.net/diffTime', {"time":difftime});
-        window.clearInterval(interval);
+        endTime = new Date();
+        timeDiff = endTime - alarmDate;
+        if(alarmType == 0)
+        {
+	       $.post('http://miniproject.eu-gb.mybluemix.net/diffTime', {"alarmType":"Bed Sensor", "time":alarmDate.toISOString().slice(0, 19).replace('T', ' '), "wakeuptime":timeDiff});
+        }
+        else
+        {
+            $.post('http://miniproject.eu-gb.mybluemix.net/diffTime', {"alarmType":"Door Sensor", "time":alarmDate.toISOString().slice(0, 19).replace('T', ' '), "wakeuptime":timeDiff});
+        }
+        //window.clearInterval(interval);
         window.location="index.html";
     }
     setTimeout(getValue, 250);

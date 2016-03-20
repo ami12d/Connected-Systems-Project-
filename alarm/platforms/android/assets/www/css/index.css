@@ -73,7 +73,7 @@ body {
 }
 form #clock 
 {
-    margin-top: 30%;
+    margin-top: 22%;
     margin-bottom: 2%;
     margin-left: 12%;
     background-color: rgba(0,0,0,0);
@@ -114,4 +114,9 @@ button
 #cancel
 {
     display: none;
+}
+#timeInfo
+{
+    margin: 8%;
+    font-size: 13px;
 }
