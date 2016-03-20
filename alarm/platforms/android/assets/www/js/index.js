@@ -152,7 +152,6 @@ function callback()
             $.post('http://miniproject.eu-gb.mybluemix.net/diffTime', {"alarmType":"Door Sensor", "time":alarmDate.toISOString().slice(0, 19).replace('T', ' '), "wakeuptime":timeDiff});
         }
         //window.clearInterval(interval);
-        alert(value.responseText);
         window.location="index.html";
     }
     setTimeout(getValue, 250);
