@@ -34,7 +34,7 @@
         <link rel="stylesheet" type="text/css" href="css/index.css">
         <title>Hello World</title>
     </head>
-    <body>
+    <body onload="getAvg()">
 
 	   <div class="app" id="myForm">
             <form>
@@ -42,10 +42,10 @@
                 <br>
                 <div id="radio">
                     <div class="item">
-                        <input class="alarmType" id="r1" type="radio" name="AlarmType" checked> Bed Sensor
+                        <input class="alarmType" id="r1" type="radio" name="AlarmType"> Bed Sensor
                     </div>
                     <div class="item">
-                        <input class="alarmType" id="r2" type="radio" name="AlarmType"> Door Sensor
+                        <input class="alarmType" id="r2" type="radio" name="AlarmType" checked> Door Sensor
                     </div>
                     <div class="item">
                         <input class="alarmType" id="r3" type="radio" name="AlarmType"> Normal Alarm
@@ -55,7 +55,7 @@
             </form>
             <button id="submit" name="add">Add</button>
             <br>
-            <p id="timeInfo"> Average time to wake up:<br> 1.23 minutes (with door sensor) <br> 0.99 minutes (with bed sensor) </p>
+            <div id="timeInfo"></div>
             <button id="cancel">Turn off</button>
         </div>
         <script type="text/javascript" src="js/index.js"></script>

@@ -26,6 +26,7 @@ var alarmType;
 var audio;
 var value;
 var difftime;
+var avgData;
 
 /**
  * This is a global variable called wakeup exposed by cordova
@@ -94,7 +95,7 @@ function setAlarm(){
     alarmDate.setHours(parsedTime[0]);
     alarmDate.setMinutes(parsedTime[1]);
     alarmDate.setSeconds(0);
-    alarmDate.setMilliseconds(0);
+    //alarmDate.setMilliseconds(0);
     navigator.plugins.alarm.set(alarmDate, 
         function(){
             //SUCCESS
@@ -116,6 +117,7 @@ function checkTrigerred() {
     if(difference < 500)
     {
 	   //difftime = new Date();//.toISOString().slice(0, 19).replace('T', ' ');
+        window.clearInterval(interval);
         audio = new Audio('audio/alarm.mp3');
         audio.loop = true;
         audio.play();
@@ -126,23 +128,32 @@ function checkTrigerred() {
         }
         else
         {
-            $.post('http://miniproject.eu-gb.mybluemix.net/alarmStatus', {"status":1});
-            window.clearInterval(interval);
-            getValue();
+            $.post('http://miniproject.eu-gb.mybluemix.net/alarmStatus', {"status":1}, function (data, status){
+                if(status == "success")
+                {
+                    window.setTimeout(getValue, 1000);
+                }
+                else
+                {
+                    interval = setInterval(checkTrigerred, 250);
+                }
+            });
         }
     }
 };
+
 function getValue()
 {
     value = $.get('http://miniproject.eu-gb.mybluemix.net/test', callback);
 };
+
 function callback()
 {
     //alert("in callback");
     if("0".localeCompare(value.responseText) == 0 && value.responseText !== undefined)
     {
         endTime = new Date();
-        timeDiff = endTime - alarmDate;
+        var timeDiff = endTime - alarmDate;
         if(alarmType == 0)
         {
 	       $.post('http://miniproject.eu-gb.mybluemix.net/diffTime', {"alarmType":"Bed Sensor", "time":alarmDate.toISOString().slice(0, 19).replace('T', ' '), "wakeuptime":timeDiff});
@@ -152,7 +163,53 @@ function callback()
             $.post('http://miniproject.eu-gb.mybluemix.net/diffTime', {"alarmType":"Door Sensor", "time":alarmDate.toISOString().slice(0, 19).replace('T', ' '), "wakeuptime":timeDiff});
         }
         //window.clearInterval(interval);
+        //alert(value.responseText);
         window.location="index.html";
     }
     setTimeout(getValue, 250);
+};
+function getAvg()
+{
+    avgData = $.get('http://miniproject.eu-gb.mybluemix.net/getAvg', parseAvg);
+};
+function parseAvg(data, status)
+{
+    if(status == "success")
+    {
+        console.log(avgData);
+        var response = avgData.responseText;
+        console.log(response);
+        var x = JSON.parse(response);
+        console.log(response);
+        var o = "Average time to turn off alarm:<br>";
+        for (avreage in x)
+        {
+            o+=x[avreage].ALARMTYPE;
+            o+=": ";
+            o+=getDate(x[avreage].Avreage);
+            o+="<br>";
+        }
+        document.getElementById("timeInfo").innerHTML = o;
+    }
+    else
+    {
+        setTimeout(getAvg, 250);
+    }
+};
+
+function getDate(seconds)
+{
+    date = new Date();
+    date.setTime(seconds);
+    dateString = "";
+    if(date.getMinutes() != 0)
+    {
+        dateString+= date.getMinutes() + " Minutes, "; 
+    }
+    if(date.getSeconds() != 0)
+    {
+        dateString+= date.getSeconds() + ".";
+    }
+    dateString+= date.getMilliseconds() + " seconds";
+    return dateString;
 };
