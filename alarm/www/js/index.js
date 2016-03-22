@@ -18,6 +18,7 @@
  */
 document.getElementById("submit").addEventListener("click", setAlarm);
 document.getElementById("cancel").addEventListener("click", stopAlarm);
+window.onload = getAvg;
 var interval;
 var exec = require("cordova/exec");
 var counter = 0;
@@ -109,7 +110,8 @@ function setAlarm(){
 };
 
 function stopAlarm(){
-    window.location="index.html";
+    //getAvg();
+    window.location.reload(true);
 };
 
 function checkTrigerred() {
@@ -164,7 +166,8 @@ function callback()
         }
         //window.clearInterval(interval);
         //alert(value.responseText);
-        window.location="index.html";
+        //getAvg();
+        window.location.reload(true);
     }
     setTimeout(getValue, 250);
 };
@@ -184,17 +187,21 @@ function parseAvg(data, status)
         var o = "Average time to turn off alarm:<br>";
         for (avreage in x)
         {
-            o+=x[avreage].ALARMTYPE;
-            o+=": ";
-            o+=getDate(x[avreage].Avreage);
-            o+="<br>";
+            if (x[avreage].ALARMTYPE=="Bed Sensor" ||x[avreage].ALARMTYPE=="Door Sensor" ){
+                o+=x[avreage].ALARMTYPE;
+                o+=": ";
+                o+=getDate(x[avreage].Avreage);
+                o+="<br>";
+            }
         }
+        //alert(o);
         document.getElementById("timeInfo").innerHTML = o;
     }
     else
     {
         setTimeout(getAvg, 250);
     }
+    avgData = null;
 };
 
 function getDate(seconds)
