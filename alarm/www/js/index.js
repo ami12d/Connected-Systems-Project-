@@ -130,16 +130,32 @@ function checkTrigerred() {
         }
         else
         {
-            $.post('http://miniproject.eu-gb.mybluemix.net/alarmStatus', {"status":1}, function (data, status){
-                if(status == "success")
-                {
-                    window.setTimeout(getValue, 1000);
-                }
-                else
-                {
-                    interval = setInterval(checkTrigerred, 250);
-                }
-            });
+            if(alarmType == 1)
+            {
+                $.post('http://miniproject.eu-gb.mybluemix.net/alarmStatus', {"status":1}, function (data, status){
+                    if(status == "success")
+                    {
+                        window.setTimeout(getValue, 1000);
+                    }
+                    else
+                    {
+                        interval = setInterval(checkTrigerred, 250);
+                    }
+                });
+            }
+            else if(alarmType == 0)
+            {
+                $.post('http://miniproject.eu-gb.mybluemix.net/alarmStatus', {"status":2}, function (data, status){
+                    if(status == "success")
+                    {
+                        window.setTimeout(getValue, 1000);
+                    }
+                    else
+                    {
+                        interval = setInterval(checkTrigerred, 250);
+                    }
+                });
+            }
         }
     }
 };
