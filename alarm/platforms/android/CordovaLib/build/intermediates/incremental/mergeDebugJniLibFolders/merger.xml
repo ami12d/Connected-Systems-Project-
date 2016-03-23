@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="/Users/williambhot/Desktop/Connected-Systems-Project-/alarm/platforms/android/CordovaLib/src/main/jniLibs"/></dataSet><dataSet config="debug"><source path="/Users/williambhot/Desktop/Connected-Systems-Project-/alarm/platforms/android/CordovaLib/src/debug/jniLibs"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="/Users/Amir/Documents/CS 2nd year/Connected/Connected-Systems-Project-/alarm/platforms/android/CordovaLib/src/main/jniLibs"/></dataSet><dataSet config="debug"><source path="/Users/Amir/Documents/CS 2nd year/Connected/Connected-Systems-Project-/alarm/platforms/android/CordovaLib/src/debug/jniLibs"/></dataSet></merger>
